@@ -10,6 +10,7 @@ use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ReviewController;
 
 
 /*
@@ -78,6 +79,11 @@ Route::group(['middleware' => ['web']], function () {
     // MESAS
     Route::post('/orden', [OrderController::class,'create']);
     Route::get('/orden/{id}', [OrderController::class,'show']);
+
+    // RESEÑAS
+    Route::get('/resenia', [ReviewController::class,'index']);
+    Route::post('/resenia', [ReviewController::class,'create']);
+    Route::get('/resenia/{id}', [ReviewController::class,'show']);
 
  
     // MI CUENTA

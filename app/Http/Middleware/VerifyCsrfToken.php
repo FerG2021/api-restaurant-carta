@@ -13,6 +13,7 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         //
-        'http://localhost:8000/api/orden'
+        'http://localhost:8000/api/orden',
+        'http://localhost:8000/api/resenia',
     ];
 }
