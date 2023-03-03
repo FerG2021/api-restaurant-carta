@@ -63,9 +63,10 @@ Route::group(['middleware' => ['web']], function () {
 
     // PRODUCTOS
     Route::get('/producto', [ProductController::class,'index']);
+    Route::get('/productoCarta/{nombre}', [ProductController::class,'indexCarta']);
     Route::post('/producto', [ProductController::class,'create']);
     Route::get('/producto/{id}', [ProductController::class,'show']);
-    Route::put('/producto/{id}', [ProductController::class,'edit']);
+    Route::post('/producto/{id}', [ProductController::class,'edit']);
     Route::delete('/producto/{id}', [ProductController::class,'destroy']);
 
     // MESAS

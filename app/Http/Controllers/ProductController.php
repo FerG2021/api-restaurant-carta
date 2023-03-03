@@ -18,18 +18,73 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-
         $products = Product::orderBy('created_at', 'asc')->get();
 
+        $productsDB = collect();
+
         if ($products) {
-            $respuesta = APIHelpers::createAPIResponse(false, 200, 'Productos encontrados con éxito', $products);
+
+            foreach ($products as $product) {
+                $listaDevolver = [
+                    'id' => $product->id,
+                    'id_category' => $product->id_category,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'stock' => $product->stock,
+                    'uuid' => $product->uuid,
+                    'image' => env('IMAGE_URL') . "/storage/imagenes/" . $product->image,
+                    'imageID' => $product->image,
+                ];
+
+                $productsDB->push($listaDevolver);
+            }
+
+            $respuesta = APIHelpers::createAPIResponse(false, 200, 'Productos encontrados con éxito', $productsDB);
 
             return response()->json($respuesta, 200);
         } else {
-            $respuesta = APIHelpers::createAPIResponse(true, 500, 'Productos encontrados con éxito', $products);
+            $respuesta = APIHelpers::createAPIResponse(true, 500, 'Productos encontrados con éxito', $productsDB);
+
+            return response()->json($respuesta, 200);
+        }
+    }
+
+    public function indexCarta($nombre)
+    {
+        if ($nombre != "null" && $nombre != "") {
+            $products = Product::where('name', 'like', '%' . $nombre . '%')->orderBy('created_at', 'asc')->get();
+        } else {
+            $products = Product::orderBy('created_at', 'asc')->get();
+        }
+
+        $productsDB = collect();
+
+        if ($products) {
+
+            foreach ($products as $product) {
+                $listaDevolver = [
+                    'id' => $product->id,
+                    'id_category' => $product->id_category,
+                    'name' => $product->name,
+                    'description' => $product->description,
+                    'price' => $product->price,
+                    'stock' => $product->stock,
+                    'uuid' => $product->uuid,
+                    'image' => env('IMAGE_URL') . "/storage/imagenes/" . $product->image,
+                    'imageID' => $product->image,
+                ];
+
+                $productsDB->push($listaDevolver);
+            }
+
+            $respuesta = APIHelpers::createAPIResponse(false, 200, 'Productos encontrados con éxito', $productsDB);
+
+            return response()->json($respuesta, 200);
+        } else {
+            $respuesta = APIHelpers::createAPIResponse(true, 500, 'Productos encontrados con éxito', $productsDB);
 
             return response()->json($respuesta, 200);
         }
@@ -71,8 +126,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('imagen')) {
             $form['imagen'] = time() . '_' . $request->file('imagen')->getClientOriginalName();
-            $request->file('imagen')->storeAs('imagenes', $form['imagen'], 'imagenes');
-
+            $request->file('imagen')->storeAs('imagenes', $form['imagen']);
         }
 
         $product = new Product();
@@ -118,7 +172,19 @@ class ProductController extends Controller
         $product = Product::where('id', '=', $id)->first();
 
         if ($product) {
-            $respuesta = APIHelpers::createAPIResponse(false, 200, 'Producto encontrado', $product);
+            $producto = [
+                'id' => $product->id,
+                'id_category' => $product->id_category,
+                'name' => $product->name,
+                'description' => $product->description,
+                'price' => $product->price,
+                'stock' => $product->stock,
+                'uuid' => $product->uuid,
+                'image' => env('IMAGE_URL') . "/storage/imagenes/" . $product->image,
+                'imageID' => $product->image,
+            ];
+
+            $respuesta = APIHelpers::createAPIResponse(false, 200, 'Producto encontrado', $producto);
         } else {
             $respuesta = APIHelpers::createAPIResponse(false, 500, 'No se encontró el producto', 'No se encontró el producto');
         }
@@ -148,7 +214,6 @@ class ProductController extends Controller
             'descripcion.required' => 'La descripción es requerida',
             'precio.required' => 'El precio es requerido',
             'stock.required' => 'El stock es requerido',
-            
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);
@@ -162,6 +227,10 @@ class ProductController extends Controller
             return response()->json($respuesta, 200);
         }
 
+        $form = $request->all();
+
+        $form['uuid'] = (string) Str::uuid();
+
         
         $product = Product::where('id', '=', $id)->first();
 
@@ -171,6 +240,14 @@ class ProductController extends Controller
             $product->description = $request->descripcion;
             $product->price = $request->precio;
             $product->stock = $request->stock;
+
+            if ($request->hasFile('imagen')) {
+                $form['imagen'] = time() . '_' . $request->file('imagen')->getClientOriginalName();
+                $request->file('imagen')->storeAs('imagenes', $form['imagen']);
+    
+                $product->uuid =  $form['uuid'];
+                $product->image =  $form['imagen'];
+            }
 
             if ($product->save()) {
                 $respuesta = APIHelpers::createAPIResponse(false, 200, 'Producto modificado con éxito', $product);

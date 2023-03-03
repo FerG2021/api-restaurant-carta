@@ -38,11 +38,19 @@ return [
 
         'public' => [
             'driver' => 'local',
+            // 'root' => storage_path('app/public'),
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
-            'throw' => false,
+            // 'throw' => false,
         ],
+
+        // 'imagenes' => [
+        //     'driver' => 'local',
+        //     'root' => storage_path('app/imagenes'),
+        //     'url' => env('APP_URL').'/imagenes',
+        //     'visibility' => 'public',
+        // ],
 
         's3' => [
             'driver' => 's3',
@@ -71,6 +79,7 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        // public_path('storage') => storage_path('app/imagenes'),
     ],
 
 ];
