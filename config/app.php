@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost, http://balanceado.com.ar, http://modularsrl.com.ar, http://apps.modularsrl.com.ar, http://192.168.1.8:5173/'),
+    'url' => env('APP_URL', 'http://localhost, http://balanceado.com.ar, http://modularsrl.com.ar, http://apps.modularsrl.com.ar, http://apicarta.balanceado.com.ar, http://landingcarta.balanceado.com.ar, http://panelcarta.balanceado.com.ar, http://192.168.1.8:5173/'),
 
     'asset_url' => env('ASSET_URL'),
 
