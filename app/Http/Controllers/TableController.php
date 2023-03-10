@@ -191,7 +191,9 @@ class TableController extends Controller
 
         $table = Table::where('id', '=', $id)->first();
 
-        $urlQR = 'http://balanceado.com.ar?mesa=' . $id;
+        // $urlQR = 'http://balanceado.com.ar?mesa=' . $id;
+        $urlQR = 'http://landingcarta.balanceado.com.ar';
+
         $qr = \QrCode::size(300)->style('round')->generate($urlQR);
 
 
