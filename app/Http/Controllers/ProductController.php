@@ -29,7 +29,7 @@ class ProductController extends Controller
             foreach ($products as $product) {
                 $listaDevolver = [
                     'id' => $product->id,
-                    'id_category' => $product->id_category,
+                    'id_subcategory' => $product->id_category,
                     'name' => $product->name,
                     'description' => $product->description,
                     'price' => $product->price,
