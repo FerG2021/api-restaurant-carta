@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         //
         'http://localhost:8000/api/orden',
         'http://localhost:8000/api/resenia',
+        'http://apicarta.balanceado.com.ar/api/resenia',
     ];
 }
