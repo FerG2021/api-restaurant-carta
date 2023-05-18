@@ -129,7 +129,7 @@ class ProductController extends Controller
             // $request->file('imagen')->storeAs('imagenes', $form['imagen']);
 
             $form['imagen'] = time() . '_' . $request->file('imagen')->getClientOriginalName();
-            // $request->file('imagen')->storeAs('imagenes', $form['imagen']);
+            $request->file('imagen')->storeAs('imagenes', $form['imagen']);
 
             $nombreGuardar = 'public/imagenes/' . $form['imagen'];
             // Storage::put($nombreGuardar, $request->file('imagen'));
