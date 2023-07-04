@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Subcategory;
+use App\Models\Category;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Helpers\APIHelpers;
@@ -27,9 +29,19 @@ class ProductController extends Controller
         if ($products) {
 
             foreach ($products as $product) {
+
+                // buscar la categoria y subcategoría del producto
+                $subcategoryDB = Subcategory::find($product->id_category);
+                $subcategoryReturn = $subcategoryDB->obtenerObjDatos();
+
+                $categoryDB = Category::find($subcategoryDB->id_category);
+                $categoryReturn = $categoryDB->obtenerObjDatos();
+
                 $listaDevolver = [
                     'id' => $product->id,
                     'id_subcategory' => $product->id_category,
+                    'subcategory' => $subcategoryReturn,
+                    'category' => $categoryReturn,
                     'name' => $product->name,
                     'description' => $product->description,
                     'price' => $product->price,
