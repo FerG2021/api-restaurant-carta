@@ -86,6 +86,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/resenia', [ReviewController::class,'create']);
     Route::get('/resenia/{id}', [ReviewController::class,'show']);
 
+    // USUARIOS
+    Route::put('/usuario/actualizar/{id}', [UserController::class,'actualizar']);
+
  
     // MI CUENTA
     Route::get('/mi-cuenta/obtenerDatos/{id}', [LoginController::class,'getDatos']);
