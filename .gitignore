@@ -8,3 +8,8 @@ Thumbs.db
 /.fleet
 /.vscode
 .phpunit.result.cache
+
+.env
+storage/app/imagenes
+storage/app/public/imagenes
+public/storage
