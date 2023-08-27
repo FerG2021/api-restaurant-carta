@@ -32,10 +32,15 @@ class ProductController extends Controller
 
                 // buscar la categoria y subcategoría del producto
                 $subcategoryDB = Subcategory::find($product->id_category);
-                $subcategoryReturn = $subcategoryDB->obtenerObjDatos();
-
-                $categoryDB = Category::find($subcategoryDB->id_category);
-                $categoryReturn = $categoryDB->obtenerObjDatos();
+                $subcategoryReturn = null;
+                $subcategoryReturn = null;
+                $categoryReturn = null;
+                if ($subcategoryDB) {
+                    $subcategoryReturn = $subcategoryDB->obtenerObjDatos();
+                    $categoryDB = Category::find($subcategoryDB->id_category);
+                    $categoryReturn = $categoryDB->obtenerObjDatos();
+                } 
+                
 
                 $listaDevolver = [
                     'id' => $product->id,
