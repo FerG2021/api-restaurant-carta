@@ -64,13 +64,10 @@ class ProductController extends Controller
         }
     }
 
-    public function indexCarta($nombre)
+    public function indexCarta()
     {
-        if ($nombre != "null" && $nombre != "") {
-            $products = Product::where('name', 'like', '%' . $nombre . '%')->orderBy('created_at', 'asc')->get();
-        } else {
-            $products = Product::orderBy('created_at', 'asc')->get();
-        }
+       
+        $products = Product::orderBy('created_at', 'asc')->get();
 
         $productsDB = collect();
 

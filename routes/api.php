@@ -28,14 +28,6 @@ use App\Http\Controllers\ReviewController;
 //     return $request->user();
 // });
 
-// Route::get('/articulos', 'App\Http\Controllers\ArticuloControllers@index'); // mostrar todos los registros
-// Route::post('/articulos', 'App\Http\Controllers\ArticuloControllers@store'); // crear un registro
-// Route::put('/articulos/{id}', 'App\Http\Controllers\ArticuloControllers@update'); // actualizar un registro
-// Route::delete('/articulos/{id}', 'App\Http\Controllers\ArticuloControllers@destroy'); // crear un registro
-
-
-
-
 Route::group(['middleware' => ['web']], function () {
     // your routes here
     // LOGIN
@@ -63,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
 
     // PRODUCTOS
     Route::get('/producto', [ProductController::class,'index']);
-    Route::get('/productoCarta/{nombre}', [ProductController::class,'indexCarta']);
+    Route::get('/productoCarta', [ProductController::class,'indexCarta']);
     Route::post('/producto', [ProductController::class,'create']);
     Route::get('/producto/{id}', [ProductController::class,'show']);
     Route::post('/producto/{id}', [ProductController::class,'edit']);
@@ -92,14 +84,4 @@ Route::group(['middleware' => ['web']], function () {
  
     // MI CUENTA
     Route::get('/mi-cuenta/obtenerDatos/{id}', [LoginController::class,'getDatos']);
-
-
-
-
-
-
-
-    
-
-
 });
