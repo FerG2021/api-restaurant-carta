@@ -14,10 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // $table->dropColumn('telefono');
-            $table->dropColumn('password_plain');
-            $table->dropColumn('tipo_usuario');
-            $table->dropColumn('proveedor_id');
+            $table->bigInteger('account_id')->unsigned();
+            $table->foreign('account_id')->references('id')->on('accounts');
         });
     }
 

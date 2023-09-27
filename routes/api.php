@@ -33,9 +33,10 @@ Route::group(['middleware' => ['web']], function () {
     // LOGIN
     // Route::post('/login', [LoginController::class, 'login']);
 
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
-    });
+    // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    //     return $request->user();
+    // });
+    Route::middleware('auth:sanctum')->get('/user', [LoginController::class,'getDatos']);
     
     // CATEGORIAS
     Route::get('/categoria', [CategoryController::class,'index']);
