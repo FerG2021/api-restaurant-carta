@@ -71,7 +71,7 @@ class ProductController extends Controller
 
     public function indexCarta($nombre)
     {
-        if ($nombre != "null" && $nombre != "") {
+        if ($nombre != null && $nombre != "") {
             $products = Product::where('name', 'like', '%' . $nombre . '%')->orderBy('created_at', 'asc')->get();
         } else {
             $products = Product::orderBy('created_at', 'asc')->get();
