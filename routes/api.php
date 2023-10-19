@@ -63,7 +63,7 @@ Route::group(['middleware' => ['web']], function () {
 
     // PRODUCTOS
     Route::get('/producto', [ProductController::class,'index']);
-    Route::get('/productoCarta/{nombre}', [ProductController::class,'indexCarta']);
+    Route::get('/productoCarta', [ProductController::class,'indexCarta']);
     Route::post('/producto', [ProductController::class,'create']);
     Route::get('/producto/{id}', [ProductController::class,'show']);
     Route::post('/producto/{id}', [ProductController::class,'edit']);
